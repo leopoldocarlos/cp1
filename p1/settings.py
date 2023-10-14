@@ -1,3 +1,4 @@
+# settings.py   Configuracion para produccion
 """
 Django settings for p1 project.
 
@@ -24,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-t*pfxl-ezbw)8m!7ylnk5hfh@1k=5his_&7$)!u!-u1#c9h^ba'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,8 +80,11 @@ WSGI_APPLICATION = 'p1.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'leopvazq.mysql.pythonanywhere-services.com',
+        'USER': 'leopvazq',
+        'PASSWORD': 'SantNie1826',
+        'NAME': 'leopvazq$default',
     }
 }
 
@@ -121,7 +125,7 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = None
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -136,3 +140,11 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL = 'loginaccount'
+
+try:
+    # Importar la configuración de desarrollo cuando el archivo esté
+    # disponible.
+    from settings_dev import *
+except ModuleNotFoundError:
+    # Si no está disponible, es porque se está corriendo en producción.
+    pass
