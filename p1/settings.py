@@ -144,7 +144,12 @@ LOGIN_URL = 'loginaccount'
 try:
     # Importar la configuración de desarrollo cuando el archivo esté
     # disponible.
-    from settings_dev import *
+    import p1.settings_dev
+    DEBUG = p1.settings_dev.DEBUG
+    ALLOWED_HOSTS = p1.settings_dev.ALLOWED_HOSTS
+    DATABASES = p1.settings_dev.DATABASES
+    STATIC_ROOT = p1.settings_dev.STATIC_ROOT
+
 except ModuleNotFoundError:
     # Si no está disponible, es porque se está corriendo en producción.
     pass
